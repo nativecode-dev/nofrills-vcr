@@ -4,7 +4,10 @@
   "license": "MIT",
   "main": "lib/index.js",
   "name": "@nofrills/vcr",
-  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/nativecode-dev/vcr"
+  },
+  "version": "1.0.1",
   "dependencies": {
     "debug": "^2.6.8",
     "uuid": "^3.1.0"

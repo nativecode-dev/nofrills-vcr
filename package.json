@@ -2,12 +2,13 @@
   "author": "support@nativecode.com",
   "description": "",
   "license": "MIT",
-  "main": "./lib/index.js",
+  "main": "./lib/vcr.js",
   "name": "@nofrills/vcr",
   "repository": {
     "url": "https://github.com/nativecode-dev/vcr"
   },
-  "version": "1.0.2",
+  "types": "./lib/vcr.d.ts",
+  "version": "1.1.0",
   "dependencies": {
     "debug": "^2.6.8",
     "uuid": "^3.1.0"
@@ -30,6 +31,5 @@
     "test": "mocha tests/",
     "pretest": "npm run build",
     "lint": "tslint ."
-  },
-  "types": "./lib/index.d.ts"
+  }
 }

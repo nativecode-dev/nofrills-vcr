@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const vcr = require('../lib')
+const vcr = require('../lib/vcr')
 
 describe('when using Logger', () => {
   const namespace = 'test::mock'

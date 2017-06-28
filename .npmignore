@@ -4,5 +4,7 @@ src/
 tests/
 tsconfig.json
 
+lib/**/*.map
+
 *.log
 *.tgz

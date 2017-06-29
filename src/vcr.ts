@@ -6,7 +6,8 @@ export const Console = (frame: Frame): void => {
 }
 
 export const Debug = (frame: Frame): void => {
-  debug(frame.tag)(frame.args)
+  const logger: debug.IDebugger = debug(frame.tag)
+  logger(frame.args)
 }
 
 export interface Frame {

@@ -29,9 +29,8 @@ export class VCR {
     this.tag = tag
   }
 
-  public use(writer: Tape): VCR {
-    this.writers.push(writer)
-    return this
+  public extend(tag: string): VCR {
+    return new VCR(this.namespace(tag))
   }
 
   public debug(...args: any[]): VCR {
@@ -46,8 +45,17 @@ export class VCR {
     return this.write('info', ...args)
   }
 
+  public use(writer: Tape): VCR {
+    this.writers.push(writer)
+    return this
+  }
+
   public warn(...args: any[]): VCR {
     return this.write('warn', ...args)
+  }
+
+  private namespace(tag: string): string {
+    return `${this.tag}:${tag}`
   }
 
   private write(tag: string, ...args: any[]): VCR {
@@ -55,11 +63,9 @@ export class VCR {
       args,
       id: uuid.v4(),
       logdate: Date.now(),
-      tag: `${this.tag}:${tag}`,
+      tag: this.namespace(tag),
     }
     this.writers.forEach(writer => writer(frame))
     return this
   }
 }
-
-export default (tag: string): VCR => new VCR(tag)

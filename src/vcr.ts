@@ -17,11 +17,16 @@ export interface Frame {
   tag: string
 }
 
+export interface Formatter {
+  (args: any[]): any[]
+}
+
 export interface Tape {
   (frame: Frame): void
 }
 
 export class VCR {
+  private readonly formatters: Formatter[] = []
   private readonly writers: Tape[] = []
   protected readonly tag: string
 
@@ -41,12 +46,17 @@ export class VCR {
     return this.write('error', ...args)
   }
 
+  public formatter(formatter: Formatter): VCR {
+    this.formatters.push(formatter)
+    return this
+  }
+
   public info(...args: any[]): VCR {
     return this.write('info', ...args)
   }
 
-  public use(writer: Tape): VCR {
-    this.writers.push(writer)
+  public use(handler: Tape): VCR {
+    this.writers.push(handler)
     return this
   }
 
@@ -65,7 +75,13 @@ export class VCR {
       logdate: Date.now(),
       tag: this.namespace(tag),
     }
-    this.writers.forEach(writer => writer(frame))
+
+    this.formatters
+      .forEach((formatter: Formatter) => frame.args = formatter(frame.args))
+
+    this.writers
+      .forEach((tape: Tape) => tape(frame))
+
     return this
   }
 }

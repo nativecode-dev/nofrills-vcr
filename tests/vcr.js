@@ -13,5 +13,17 @@ describe('when using Logger', () => {
       const sut = new vcr.VCR(namespace).use(mock)
       sut.info('test')
     })
+
+    it('should use custom formatting', (done) => {
+      const formatter = (args) => args.map(arg => {
+        return { message: arg}
+      })
+      const mock = (frame) => {
+        expect(frame.args[0].message).to.equal('test')
+        done()
+      }
+      const sut = new vcr.VCR(namespace).formatter(formatter).use(mock)
+      sut.info('test')
+    })
   })
 })

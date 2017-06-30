@@ -2,7 +2,8 @@ import * as debug from 'debug'
 import * as uuid from 'uuid'
 
 export const Console = (frame: Frame): void => {
-  console.log(frame.tag, ...frame.args)
+  const logger = console.log
+  logger(frame.tag, ...frame.args)
 }
 
 export const Debug = (frame: Frame): void => {
@@ -17,18 +18,14 @@ export interface Frame {
   tag: string
 }
 
-export interface Formatter {
-  (args: any[]): any[]
-}
-
-export interface Tape {
-  (frame: Frame): void
-}
+export type Formatter = (args: any[]) => any[]
+export type Tape = (frame: Frame) => void
 
 export class VCR {
+  protected readonly tag: string
+
   private readonly formatters: Formatter[] = []
   private readonly writers: Tape[] = []
-  protected readonly tag: string
 
   constructor(tag: string) {
     this.tag = tag

@@ -4,6 +4,7 @@ src/
 tests/
 tsconfig.json
 
+.travis.yml
 lib/**/*.map
 
 *.log

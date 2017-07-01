@@ -6,11 +6,11 @@ describe('when using Logger', () => {
   describe('with mock logwriter', () => {
     it('should write to mock logwriter', (done) => {
       const mock = (frame) => {
-        expect(frame.tag).to.equal(`${namespace}:info`)
+        expect(frame.tag).to.equal(`${namespace}:test:info`)
         expect(frame.args[0]).to.equal('test')
         done()
       }
-      const sut = new vcr.VCR(namespace).use(mock)
+      const sut = new vcr.VCR(namespace).use(mock).extend('test')
       sut.info('test')
     })
 

@@ -32,7 +32,10 @@ export class VCR {
   }
 
   public extend(tag: string): VCR {
-    return new VCR(this.namespace(tag))
+    const vcr = new VCR(this.namespace(tag))
+    this.formatters.forEach((formatter) => vcr.formatter(formatter))
+    this.writers.forEach((writer) => vcr.use(writer))
+    return vcr
   }
 
   public debug(...args: any[]): VCR {

@@ -21,15 +21,16 @@
     "@types/uuid": "^3.0.0",
     "chai": "^4.0.2",
     "mocha": "^3.4.2",
+    "rimraf": "^2.6.1",
     "tslint": "^5.4.3",
     "typescript": "^2.3.4"
   },
   "scripts": {
     "build": "tsc --project .",
-    "prebuild": "rm -rf lib",
+    "prebuild": "rimraf lib/",
     "postbuild": "npm run lint",
+    "lint": "tslint src/",
     "test": "mocha tests/",
-    "pretest": "npm run build",
-    "lint": "tslint src"
+    "pretest": "npm run build"
   }
 }
